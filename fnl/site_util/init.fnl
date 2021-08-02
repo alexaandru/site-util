@@ -27,6 +27,5 @@
                  [:<Leader>d :<Cmd>Date<CR> S]
                  ["<C-\\>"
                   "<Cmd>PrepArt<CR><Cmd>up<CR><bar><Cmd>let $VIM_DIR=expand('%:p:h')<CR><Cmd>Term<CR>cd \"$VIM_DIR\" && reimg && jsame && mv * .. && exit<CR>"
-                  S]
-                 [:<F12>s "<Cmd>Cfg site.vim<CR>" S]]}))
+                  S]]}))
 
