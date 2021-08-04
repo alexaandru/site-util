@@ -1,7 +1,5 @@
 (local util (require :util))
-(local site (require :site_util.site))
-
-(site.unpack_G [:Img :AutoImg :AutoFB :CorrectTitleMarker])
+(require :site_util.site)
 
 (util.com ["-bar -count=1 Img lua Img(<count>)"
            "-bar AutoImg lua AutoImg()"
@@ -18,14 +16,14 @@
            "     PrepArt exe 'TrimAll' | exe 'AutoDate' | CorrectTitleMarker | AutoFB | up"
            "-bar PrepArts n **/*.txt | argdo PrepArt"])
 
-(util.au {:SiteUtil ["BufEnter */articole/**/*.txt,*/Downloads/**/*.txt setl ft=markdown spell spelllang=ro"
-                     "BufWritePre */articole/**/*.txt,*/Downloads/**/*.txt TrimAll"]})
+(au {:SiteUtil ["BufEnter */articole/**/*.txt,*/Downloads/**/*.txt setl ft=markdown spell spelllang=ro"
+                "BufWritePre */articole/**/*.txt,*/Downloads/**/*.txt TrimAll"]})
 
 (let [S {:silent true}]
-  (util.map {:n [[:<Leader>a :<Cmd>AutoImg<CR> S]
-                 [:<Leader>i :<Cmd>Img<CR> S]
-                 [:<Leader>d :<Cmd>Date<CR> S]
-                 ["<C-\\>"
-                  "<Cmd>PrepArt<CR><Cmd>up<CR><bar><Cmd>let $VIM_DIR=expand('%:p:h')<CR><Cmd>Term<CR>cd \"$VIM_DIR\" && reimg && jsame && mv * .. && exit<CR>"
-                  S]]}))
+  (util.kmap {:n [[:<Leader>a :<Cmd>AutoImg<CR> S]
+                  [:<Leader>i :<Cmd>Img<CR> S]
+                  [:<Leader>d :<Cmd>Date<CR> S]
+                  ["<C-\\>"
+                   "<Cmd>PrepArt<CR><Cmd>up<CR><bar><Cmd>let $VIM_DIR=expand('%:p:h')<CR><Cmd>Term<CR>cd \"$VIM_DIR\" && reimg && jsame && mv * .. && exit<CR>"
+                   S]]}))
 
