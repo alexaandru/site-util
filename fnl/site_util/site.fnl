@@ -23,18 +23,20 @@
   (set vim.b.img 0)
   (let [cmd vim.cmd
         count (img-count)]
-    (if (> count 0)
-        (if (> (search :<img) 0)
-            (vim.notify "ERROR: images already present" vim.log.levels.ERROR)
-            (do
-              (cmd :TrimTrailingSpace)
-              (cmd :TrimTrailingBlankLines)
-              (cursor (+ 1 (search "-------")) 0)
-              (_G.Img)
-              (cursor (. (vim.fn.getpos "$") 2) 0)
-              (cmd "exe 'norm o'")
-              (_G.Img (- count 1))
-              (cursor 0 0))))))
+    (if (= count nil) (print "No images were found\n")
+        (if (> count 0)
+            (if (> (search :<img) 0)
+                (vim.notify "ERROR: images already present"
+                            vim.log.levels.ERROR)
+                (do
+                  (cmd :TrimTrailingSpace)
+                  (cmd :TrimTrailingBlankLines)
+                  (cursor (+ 1 (search "-------")) 0)
+                  (_G.Img)
+                  (cursor (. (vim.fn.getpos "$") 2) 0)
+                  (cmd "exe 'norm o'")
+                  (_G.Img (- count 1))
+                  (cursor 0 0)))))))
 
 (fn _G.AutoFB []
   (cursor 1 0)
