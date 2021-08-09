@@ -1,10 +1,10 @@
 (local util (require :util))
 
-(util.com ["-bar -count=1 Img lua require'site_util.site'.Img(<count>)"
-           "-bar AutoImg lua require'site_util.site'.AutoImg()"
+(util.com ["-bar -count=1 Img lua require'site.util'.Img(<count>)"
+           "-bar AutoImg lua require'site.util'.AutoImg()"
            "     AutoDate 1 | if !search('^data:', 'n', '^---$') | Date | endif"
-           "-bar AutoFB lua require'site_util.site'.AutoFB()"
-           "-bar CorrectTitleMarker lua require'site_util.site'.CorrectTitleMarker()"
+           "-bar AutoFB lua require'site.util'.AutoFB()"
+           "-bar CorrectTitleMarker lua require'site.util'.CorrectTitleMarker()"
            "-bar Date exe 'norm odata:  '.strftime('%F %T %z')"
            "-bar RO setl spell spelllang=ro"
            "-bar ArticoleNoi silent! n `git ls-files -mo content/articole`"
