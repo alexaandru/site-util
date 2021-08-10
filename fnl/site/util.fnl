@@ -55,7 +55,7 @@
 
 (fn CorrectTitleMarker []
   (let [pos (search "-------")
-        len (length (string.gsub (vim.fn.getline (- pos 1)) "[�-�]" ""))
+        len (vim.fn.strchars (vim.fn.getline (- pos 1)))
         title (string.rep "-" len)]
     (vim.fn.setline pos title)))
 
