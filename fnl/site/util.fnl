@@ -2,15 +2,11 @@
 (local search vim.fn.search)
 (local cmd vim.cmd)
 
-(fn Img [count]
-  (set vim.b.img (or vim.b.img 0))
-  (let [stop (+ vim.b.img (or count 1))]
-    (while (< vim.b.img stop)
-      (set vim.b.img (+ vim.b.img 1))
-      (let [name (vim.fn.expand "%")
-            img (.. "<img src=\"/images" (name:sub 8 (- (length name) 4)) "_"
-                    vim.b.img ".jpg\">'")]
-        (cmd (.. "exe 'norm o" img))))))
+(fn ins-line [text]
+  (let [text (or text "")
+        line (vim.fn.line ".")]
+    (vim.fn.append line text)
+    (cursor (+ line 1) 0)))
 
 (fn img-count []
   (let [name (vim.fn.expand "%")]
@@ -19,6 +15,17 @@
                        "_[0-9]*.jpg")
               images (vim.fn.glob path 0 1)]
           (length (vim.tbl_filter #(not ($:find "_small%d+.jpg")) images))))))
+
+(fn Img [count]
+  (set vim.b.img (or vim.b.img 0))
+  (let [stop (+ vim.b.img (or count 1))]
+    (while (< vim.b.img stop)
+      (set vim.b.img (+ vim.b.img 1))
+      (let [name (vim.fn.expand "%")
+            line (vim.fn.line ".")
+            img (.. "<img src=\"/images" (name:sub 8 (- (length name) 4)) "_"
+                    vim.b.img ".jpg\">")]
+        (ins-line img)))))
 
 (fn AutoImg []
   (set vim.b.img 0)
@@ -33,8 +40,8 @@
                   (cmd :TrimTrailingBlankLines)
                   (cursor (+ 1 (search "-------")) 0)
                   (Img)
-                  (cursor (. (vim.fn.getpos "$") 2) 0)
-                  (cmd "exe 'norm o'")
+                  (cursor (vim.fn.line "$") 0)
+                  (ins-line "")
                   (Img (- count 1))
                   (cursor 0 0)))))))
 
@@ -53,3 +60,4 @@
     (vim.fn.setline pos title)))
 
 {: Img : AutoImg : AutoFB : CorrectTitleMarker}
+
