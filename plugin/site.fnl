@@ -1,4 +1,5 @@
-(local {: com : au : māp} (require :setup))
+;; FIXME: eliminate this dependency to setup...
+(local {: com : au : map} (require :setup))
 (local {: AutoImg : AutoFB : FixTitleMarker} (require :site.util))
 
 (com {: AutoImg
@@ -15,13 +16,17 @@
       :PrepArt "exe 'TrimAll' | exe 'AutoDate' | FixTitleMarker | AutoFB | up"
       :PrepArts "n **/*.txt | argdo PrepArt"})
 
-(au {:SiteUtil ["BufEnter */articole/**/*.txt,*/Downloads/**/*.txt setl ft=markdown spell spelllang=ro"
-                "BufWritePre */articole/**/*.txt,*/Downloads/**/*.txt TrimAll"]})
+(au {:SiteUtil [[:BufEnter
+                 "setl ft=markdown spell spelllang=ro"
+                 "*/articole/**/*.txt,*/Downloads/**/*.txt"]
+                [:BufWritePre
+                 :TrimAll
+                 "*/articole/**/*.txt,*/Downloads/**/*.txt"]]})
 
 (let [S {:silent true}]
-  (māp {:n [[:<Leader>a :<Cmd>AutoImg<CR> S]
-             [:<Leader>d :<Cmd>Date<CR> S]
-             ["<C-\\>"
-              "<Cmd>PrepArt<CR><Cmd>up<CR><bar><Cmd>let $VIM_DIR=expand('%:p:h')<CR><Cmd>Term<CR>cd \"$VIM_DIR\" && reimg && jsame && mv * .. && exit<CR>"
-              S]]}))
+  (map {:n [[:<Leader>a :<Cmd>AutoImg<CR> S]
+            [:<Leader>d :<Cmd>Date<CR> S]
+            ["<C-\\>"
+             "<Cmd>PrepArt<CR><Cmd>up<CR><bar><Cmd>let $VIM_DIR=expand('%:p:h')<CR><Cmd>Term<CR>cd \"$VIM_DIR\" && reimg && jsame && mv * .. && exit<CR>"
+             S]]}))
 
