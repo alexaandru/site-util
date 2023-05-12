@@ -24,7 +24,7 @@
                  "*/articole/**/*.txt,*/Downloads/**/*.txt"]]})
 
 (let [S {:silent true}]
-  (map {:n [[:<Leader>a :<Cmd>AutoImg<CR> S]
+  (map {:n [;[:<Leader>a :<Cmd>AutoImg<CR> S]
             [:<Leader>d :<Cmd>Date<CR> S]
             ["<C-\\>"
              "<Cmd>PrepArt<CR><Cmd>up<CR><bar><Cmd>let $VIM_DIR=expand('%:p:h')<CR><Cmd>Term<CR>cd \"$VIM_DIR\" && reimg && jsame && mv * .. && exit<CR>"
