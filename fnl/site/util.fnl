@@ -1,6 +1,5 @@
 (local cursor vim.fn.cursor)
 (local search vim.fn.search)
-(local cmd vim.cmd)
 
 (fn ins-line [text]
   (let [text (or text "")
@@ -36,8 +35,8 @@
                 (vim.notify "ERROR: images already present"
                             vim.log.levels.ERROR)
                 (do
-                  (cmd :TrimTrailingSpace)
-                  (cmd :TrimTrailingBlankLines)
+                  (vim.cmd.TrimTrailingSpace)
+                  (vim.cmd.TrimTrailingBlankLines)
                   (cursor (+ 1 (search "-------")) 0)
                   (img)
                   (cursor (vim.fn.line "$") 0)
